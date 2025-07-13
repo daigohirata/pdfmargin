@@ -42,12 +42,18 @@ def add_margin_to_pdf(input_pdf, output_pdf, margin_ratio=0.25, side="both"):
 
 def main():
     parser = argparse.ArgumentParser(description='Make margins on the side of PDF files')
-    parser.add_argument('-i', '--input-file', required=True)
-    parser.add_argument('-o', '--output-file')
+    parser.add_argument('-i', '--input-file', 
+                        required=True,
+                        help='Path to input file')
+    parser.add_argument('-o', '--output-file',
+                        help='Path to output file')
     parser.add_argument('-s', '--side',
                         choices=['both', 'left', 'right'],
                         default='both',
                         help='Which side(s) to add margins: both, left, or right (default: both)')
+    parser.add_argument('-r', '--margin-ratio',
+                        default=0.5,
+                        help='Margin ratio to original size')
     
     args = parser.parse_args()
 
@@ -62,7 +68,7 @@ def main():
     add_margin_to_pdf(
         input_pdf=args.input_file,
         output_pdf=output_pdf,
-        margin_ratio=0.25,
+        margin_ratio=args.margin_ratio,
         side=args.side
     )
 
