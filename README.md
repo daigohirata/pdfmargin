@@ -13,3 +13,10 @@ $ pip install .
 # Display all available options
 $ pdfmargin --help
 ```
+
+## Uninstallation
+
+To uninstall `pdfmargin`, run the following command:
+
+```bash
+pip uninstall pdfmargin
