@@ -42,9 +42,12 @@ def add_margin_to_pdf(input_pdf, output_pdf, margin_ratio=0.25, side="both"):
 
 def main():
     parser = argparse.ArgumentParser(description='Make margins on the side of PDF files')
-    parser.add_argument('-i', '--input-file', 
+    parser.add_argument('-i', '--input-files', '--input-file',
+                        dest='input_files',
+                        nargs='+',
                         required=True,
-                        help='Path to input file')
+                        metavar='PDF',
+                        help='One or more input PDF files')
     parser.add_argument('-o', '--output-file',
                         help='Path to output file')
     parser.add_argument('-s', '--side',
@@ -52,25 +55,28 @@ def main():
                         default='both',
                         help='Which side(s) to add margins: both, left, or right (default: both)')
     parser.add_argument('-r', '--margin-ratio',
+                        type=float,
                         default=0.5,
                         help='Margin ratio to original size')
     
     args = parser.parse_args()
 
-    input_pdf = args.input_file
+    if args.output_file is not None and len(args.input_files) != 1:
+        parser.error('--output-file can only be used with one input PDF')
 
-    if args.output_file is None:
-        base, ext = os.path.splitext(input_pdf)
-        output_pdf = base + '_margined' + ext
-    else:
-        output_pdf = args.output_file
-    
-    add_margin_to_pdf(
-        input_pdf=args.input_file,
-        output_pdf=output_pdf,
-        margin_ratio=args.margin_ratio,
-        side=args.side
-    )
+    for input_pdf in args.input_files:
+        if args.output_file is None:
+            base, ext = os.path.splitext(input_pdf)
+            output_pdf = base + '_margined' + ext
+        else:
+            output_pdf = args.output_file
+
+        add_margin_to_pdf(
+            input_pdf=input_pdf,
+            output_pdf=output_pdf,
+            margin_ratio=args.margin_ratio,
+            side=args.side
+        )
 
 if __name__ == "__main__":
     main()
