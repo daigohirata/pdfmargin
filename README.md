@@ -1,5 +1,5 @@
 # pdfmargin
-CLI tools to add margins in PDF files
+CLI tools to add margins to and split PDF files.
 
 ## Installation
 ```
@@ -12,7 +12,14 @@ $ pip install .
 ```
 # Display all available options
 $ pdfmargin --help
+
+# Split after pages 12, 14, 67, and 90; any remaining pages are saved as a final file
+$ dividedpdf -i input.pdf -o output_dir/ -d 12,14,67,90
+# The same command is also available as `dividepdf`
 ```
+
+Split output files are named with their page ranges, such as `input_1-12.pdf`,
+`input_13-14.pdf`, and `input_15-67.pdf`. The output directory is created if needed.
 
 ## Uninstallation
 

@@ -10,6 +10,8 @@ setup(
     entry_points={
         'console_scripts': [
             'pdfmargin=pdfmargin.cli:main',  # ← pdfmargin コマンドで main() 実行
+            'dividedpdf=pdfmargin.dividedpdf:main',
+            'dividepdf=pdfmargin.dividedpdf:main',
         ],
     },
     author='Daigo Hirata',
