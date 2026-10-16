@@ -1,12 +1,17 @@
-# pdfmargin
+# pdfdm
 CLI tools to add margins to and split PDF files.
 
 ## Installation
+```bash
+$ brew install pipx
+$ pipx ensurepath
+$ git clone https://github.com/daigohirata/pdfmargin ~/pdfdm
+$ pipx install --editable ~/pdfdm
 ```
-$ git clone https://github.com/daigohirata/pdfmargin ~/pdfmargin
-$ cd ~/pdfmargin
-$ pip install .
-```
+
+`pipx` installs the commands in an isolated environment and exposes them on your
+PATH, so you do not need to activate a project `venv` each time. Restart the
+terminal after `pipx ensurepath` if the commands are not found immediately.
 
 ## Usage
 ```
@@ -23,8 +28,7 @@ $ pdfmargin --input-files first.pdf second.pdf -s right
 $ pdfmargin -i input.pdf -o output.pdf -s right
 
 # Split after pages 12, 14, 67, and 90; any remaining pages are saved as a final file
-$ dividedpdf -i input.pdf -o output_dir/ -d 12,14,67,90
-# The same command is also available as `dividepdf`
+$ pdfdivide -i input.pdf -o output_dir/ -d 12,14,67,90
 ```
 
 Split output files are named with their page ranges, such as `input_1-12.pdf`,
@@ -32,7 +36,7 @@ Split output files are named with their page ranges, such as `input_1-12.pdf`,
 
 ## Uninstallation
 
-To uninstall `pdfmargin`, run the following command:
+To uninstall the `pdfdm` package (which provides `pdfmargin` and `pdfdivide`), run:
 
 ```bash
-pip uninstall pdfmargin
+pipx uninstall pdfdm

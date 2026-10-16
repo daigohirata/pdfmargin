@@ -1,21 +1,20 @@
-from setuptools import setup, find_packages
+from setuptools import setup
 
 setup(
-    name='pdfmargin',
+    name='pdfdm',
     version='0.0.0',
-    packages=find_packages(),
+    packages=['pdfdm'],
     install_requires=[
         'pypdf>=3.0.0',
     ],
     entry_points={
         'console_scripts': [
-            'pdfmargin=pdfmargin.cli:main',  # ← pdfmargin コマンドで main() 実行
-            'dividedpdf=pdfmargin.dividedpdf:main',
-            'dividepdf=pdfmargin.dividedpdf:main',
+            'pdfmargin=pdfdm.pdfmargin:main',
+            'pdfdivide=pdfdm.pdfdivide:main',
         ],
     },
     author='Daigo Hirata',
-    description='CLI tool to add margins to PDF files',
+    description='PDF margin and division command-line tools',
     classifiers=[
         'Programming Language :: Python :: 3',
         'Operating System :: OS Independent',

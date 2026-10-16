@@ -1,7 +1,7 @@
 import os
 import argparse
-# from pypdf import PdfReader, PdfWriter, PageObject
 from pypdf import PdfReader, PdfWriter
+
 
 def add_margin_to_pdf(input_pdf, output_pdf, margin_ratio=0.25, side="both"):
     reader = PdfReader(input_pdf)
@@ -25,10 +25,7 @@ def add_margin_to_pdf(input_pdf, output_pdf, margin_ratio=0.25, side="both"):
         else:
             raise ValueError("Invalid side value. Choose from 'both', 'left', 'right'.")
 
-        # 空白ページを作成（推奨方法）
         new_page = writer.add_blank_page(width=new_width, height=original_height)
-
-        # 既存ページを新ページにマージ（中央 or 左寄せ）
         new_page.merge_translated_page(page, tx=tx, ty=0)
 
     try:
@@ -41,33 +38,42 @@ def add_margin_to_pdf(input_pdf, output_pdf, margin_ratio=0.25, side="both"):
 
 
 def main():
-    parser = argparse.ArgumentParser(description='Make margins on the side of PDF files')
-    parser.add_argument('-i', '--input-files', '--input-file',
-                        dest='input_files',
-                        nargs='+',
-                        required=True,
-                        metavar='PDF',
-                        help='One or more input PDF files')
-    parser.add_argument('-o', '--output-file',
-                        help='Path to output file')
-    parser.add_argument('-s', '--side',
-                        choices=['both', 'left', 'right'],
-                        default='both',
-                        help='Which side(s) to add margins: both, left, or right (default: both)')
-    parser.add_argument('-r', '--margin-ratio',
-                        type=float,
-                        default=0.5,
-                        help='Margin ratio to original size')
-    
+    parser = argparse.ArgumentParser(description="Make margins on the side of PDF files")
+    parser.add_argument(
+        "-i",
+        "--input-files",
+        "--input-file",
+        dest="input_files",
+        nargs="+",
+        required=True,
+        metavar="PDF",
+        help="One or more input PDF files",
+    )
+    parser.add_argument("-o", "--output-file", help="Path to output file")
+    parser.add_argument(
+        "-s",
+        "--side",
+        choices=["both", "left", "right"],
+        default="both",
+        help="Which side(s) to add margins: both, left, or right (default: both)",
+    )
+    parser.add_argument(
+        "-r",
+        "--margin-ratio",
+        type=float,
+        default=0.5,
+        help="Margin ratio to original size",
+    )
+
     args = parser.parse_args()
 
     if args.output_file is not None and len(args.input_files) != 1:
-        parser.error('--output-file can only be used with one input PDF')
+        parser.error("--output-file can only be used with one input PDF")
 
     for input_pdf in args.input_files:
         if args.output_file is None:
             base, ext = os.path.splitext(input_pdf)
-            output_pdf = base + '_margined' + ext
+            output_pdf = base + "_margined" + ext
         else:
             output_pdf = args.output_file
 
@@ -75,8 +81,9 @@ def main():
             input_pdf=input_pdf,
             output_pdf=output_pdf,
             margin_ratio=args.margin_ratio,
-            side=args.side
+            side=args.side,
         )
+
 
 if __name__ == "__main__":
     main()
